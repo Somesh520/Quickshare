@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickShare - Upload Files Instantly</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#667eea] via-[#764ba2] to-[#6b8dd6] min-h-screen flex items-center justify-center px-4">
+
+  <div class="glass shadow-2xl fade-in p-10 w-full max-w-xl text-center text-white">
+    <h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-200 mb-2">🚀 QuickShare</h1>
+    <p class="text-sm text-gray-200 mb-6">Securely upload files and instantly share them with anyone.</p>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+
+      <label for="file" class="flex flex-col items-center justify-center w-full h-40 p-4 text-center bg-white/10 hover:bg-white/20 transition cursor-pointer border-2 border-dashed border-white rounded-xl">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v9m0-9l-3 3m3-3l3 3m-6 0h6" />
+        </svg>
+        <p class="text-sm">Click or drag file to this area to upload</p>
+        <input id="file" type="file" name="file" class="hidden" required />
+      </label>
+
+      <button type="submit" class="w-full py-3 bg-white text-indigo-700 font-bold rounded-xl hover:bg-gray-100 transition">
+        ⬆️ Upload Now
+      </button>
+    </form>
+  </div>
+
+  <footer class="absolute bottom-4 text-sm text-white text-opacity-80">
+    Made with ❤️ by <span class="font-semibold">Somesh</span>
+  </footer>
+
+</body>
+</html>
