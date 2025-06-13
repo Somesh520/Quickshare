@@ -6,5 +6,5 @@ serviceAccountKey.json
 node_modules/
 uploads/
 
-models/
-cloudinary.js
+
+
