@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "cloudinary": "^1.41.3",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.4.0",
+    "mongoose": "^8.15.2",
+    "multer": "^2.0.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "node": "^24.2.0",
+    "nodemon": "^3.1.10",
+    "router": "^2.2.0",
+    "uuid": "^11.1.0"
+  },
+  "name": "project-quickshare",
+  "version": "1.0.0",
+  "main": "cloudinary.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Somesh520/Quickshare.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Somesh520/Quickshare/issues"
+  },
+  "homepage": "https://github.com/Somesh520/Quickshare#readme",
+  "description": ""
+}
