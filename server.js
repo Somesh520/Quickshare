@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 const mongoose = require("./db");
 require("dotenv").config(); // If using .env
-const upRoute = require("./routes/files");
+
 
 // 🔧 View Engine
 app.set("view engine", "ejs");
@@ -14,7 +14,8 @@ app.use(express.static("public"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true })); // Needed for forms
 
-app.use("/upload", upRoute); 
+app.use("/upload", require("./routes/files"));
+
 
 
 

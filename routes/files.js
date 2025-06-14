@@ -12,6 +12,9 @@ const router = express.Router();
 // ✅ Upload Route
 router.post("/", upload.single("file"), async (req, res) => {
   try {
+    console.log("🔥 Upload route HIT");
+    console.log("📁 File:", req.file);
+
     if (!req.file) {
       return res.status(400).send("❌ No file uploaded.");
     }
@@ -33,9 +36,9 @@ router.post("/", upload.single("file"), async (req, res) => {
     const response = await newFile.save();
 
     const downloadLink = cloudUrl.replace("/upload/", "/upload/fl_attachment/");
-    console.log("✅ Final Download Link:", downloadLink);
+    console.log("✅ Final Download Link:", typeof downloadLink, downloadLink);
 
-    res.render("success", { fileLink: downloadLink });
+    res.render("success", { fileLink: String(downloadLink) });
   } catch (err) {
     console.log("❌ Error:", JSON.stringify(err, null, 2));
     res.status(500).send(err.message || "Something went wrong");
@@ -53,6 +56,12 @@ router.get("/files/:uuid", async (req, res) => {
     console.log("❌ Error:", JSON.stringify(err, null, 2));
     res.status(500).send(err.message || "Something went wrong");
   }
+});
+
+// ✅ Test Route
+router.get("/ping", (req, res) => {
+  console.log("📡 Ping route working");
+  res.send("Ping OK");
 });
 
 module.exports = router;
