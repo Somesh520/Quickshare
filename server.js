@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
-// const path = require("path");
 const path = require("path");
-
 const mongoose = require("./db");
 require("dotenv").config(); // If using .env
 const upRoute = require("./routes/files");
@@ -15,21 +13,17 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true })); // Needed for forms
-// const upRoute = require("./routes/files");
+
 app.use("/upload", upRoute); 
 
-// ✅ Route
-// app.use("/", upRoute); // This covers both "/" and POST "/"
 
-//🔊 Test Route (optional)
+
+
+
 app.get("/", (req, res) => {
   res.render("index");
 });
 
-
-// app.get("/test", (req, res) => {
-//   res.send("✅ Server is working!");
-// });
 
 
 
