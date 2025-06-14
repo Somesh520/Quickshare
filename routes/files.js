@@ -44,9 +44,11 @@ router.get("/files/:uuid", async (req, res) => {
     if (!file) return res.status(404).send("❌ File not found.");
 
     res.redirect(file.path); // 🔁 Redirect to Cloudinary URL
-  } catch (err) {
-    return res.status(500).send("❌ Something went wrong.");
-  }
+ } catch (err) {
+  console.log("❌ Error:", JSON.stringify(err, null, 2));
+  return res.status(500).send(err.message || "Something went wrong");
+}
+
 });
 
 module.exports = router;
