@@ -15,6 +15,7 @@ const storage = new CloudinaryStorage({
     folder: "quickshare",
     resource_type: "auto", // can be image, video, raw, etc
     // allowed_formats: ["pptx", "pdf", "zip", "docx", "xlsx", "csv", "txt"],+++++
+    //yaha se chud gaya 
   },
 });
 

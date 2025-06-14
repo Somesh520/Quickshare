@@ -2,17 +2,17 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("./db");
-require("dotenv").config(); // If using .env
+require("dotenv").config(); 
 
 
-// 🔧 View Engine
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// 🔧 Middleware
+
 app.use(express.static("public"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use(express.urlencoded({ extended: true })); // Needed for forms
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/upload", require("./routes/files"));
 
