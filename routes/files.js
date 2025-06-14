@@ -1,4 +1,4 @@
-// ✅ routes/files.js (Cleaned and Updated)
+// ✅ routes/files.js (Final Cloudinary Version with Safe URL)
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
@@ -12,30 +12,34 @@ const router = express.Router();
 // ✅ Upload Route
 router.post("/", upload.single("file"), async (req, res) => {
   try {
-    if (!req.file || !req.file.path) {
+    if (!req.file) {
       return res.status(400).send("❌ No file uploaded.");
+    }
+
+    const cloudUrl = req.file?.path || req.file?.secure_url;
+
+    if (!cloudUrl) {
+      console.log("❌ Cloudinary URL missing in req.file:", JSON.stringify(req.file, null, 2));
+      return res.status(500).send("Something went wrong: file URL not found.");
     }
 
     const newFile = new File({
       filename: req.file.originalname,
       uuid: uuidv4(),
-      path: req.file.path,
+      path: cloudUrl,
       size: req.file.size || 0,
     });
 
     const response = await newFile.save();
 
-    const cloudUrl = req.file.path || req.file.secure_url;
     const downloadLink = cloudUrl.replace("/upload/", "/upload/fl_attachment/");
-
     console.log("✅ Final Download Link:", downloadLink);
+
     res.render("success", { fileLink: downloadLink });
   } catch (err) {
     console.log("❌ Error:", JSON.stringify(err, null, 2));
     res.status(500).send(err.message || "Something went wrong");
   }
-  console.log("🧪 File received:", req.file);
-console.log("🌐 Raw URL:", req.file.path);
 });
 
 // ✅ UUID-based Redirect Route
