@@ -12,17 +12,17 @@ const router = express.Router();
 
 router.post("/", upload.single("file"), async (req, res) => {
   try {
-    console.log(" Upload route HIT");
-    console.log(" File:", req.file);
+    console.log("🔥 Upload route HIT");
+    console.log("📁 File:", req.file);
 
     if (!req.file) {
-      return res.status(400).send(" No file uploaded.");
+      return res.status(400).send("❌ No file uploaded.");
     }
 
     const cloudUrl = req.file?.path || req.file?.secure_url;
 
     if (!cloudUrl) {
-      console.log(" Cloudinary URL missing in req.file:", JSON.stringify(req.file, null, 2));
+      console.log("❌ Cloudinary URL missing in req.file:", JSON.stringify(req.file, null, 2));
       return res.status(500).send("Something went wrong: file URL not found.");
     }
 
@@ -35,12 +35,14 @@ router.post("/", upload.single("file"), async (req, res) => {
 
     const response = await newFile.save();
 
-    const downloadLink = cloudUrl.replace("/upload/", "/upload/fl_attachment/");
-    console.log(" Final Download Link:", typeof downloadLink, downloadLink);
+    const baseURL = req.protocol + "://" + req.get("host");
+    const fileLink = `${baseURL}/files/${response.uuid}`;
 
-    res.render("success", { fileLink: String(downloadLink) });
+    console.log("✅ UUID-based share link:", fileLink);
+
+    res.render("success", { fileLink });
   } catch (err) {
-    console.log(" Error:", JSON.stringify(err, null, 2));
+    console.log("❌ Error:", JSON.stringify(err, null, 2));
     res.status(500).send(err.message || "Something went wrong");
   }
 });
@@ -49,11 +51,17 @@ router.post("/", upload.single("file"), async (req, res) => {
 router.get("/files/:uuid", async (req, res) => {
   try {
     const file = await File.findOne({ uuid: req.params.uuid });
-    if (!file) return res.status(404).send(" File not found.");
+    if (!file) return res.status(404).send("❌ File not found.");
 
-    res.redirect(file.path);
+    const downloadableLink = file.path.replace("/upload/", "/upload/fl_attachment/");
+    res.render("publicfile", {
+      fileName: file.filename,
+      fileSize: (file.size / 1024).toFixed(1) + " KB",
+      cloudLink: file.path,
+      downloadLink: downloadableLink
+    });
   } catch (err) {
-    console.log(" Error:", JSON.stringify(err, null, 2));
+    console.log("❌ Error:", JSON.stringify(err, null, 2));
     res.status(500).send(err.message || "Something went wrong");
   }
 });
