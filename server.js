@@ -1,9 +1,10 @@
+
 const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("./db");
-require("dotenv").config(); 
-
+require("dotenv").config();
+const upRoute = require("./routes/files");
 
 
 app.set("view engine", "ejs");
@@ -14,19 +15,13 @@ app.use(express.static("public"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/upload", require("./routes/files"));
 
-
-
-
+app.use("/", upRoute);
 
 
 app.get("/", (req, res) => {
   res.render("index");
 });
-
-
-
 
 
 

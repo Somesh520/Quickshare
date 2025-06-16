@@ -23,31 +23,58 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    .glow-border {
+      box-shadow: 0 0 15px rgba(255, 221, 64, 0.6);
+    }
+    .animated-gradient {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .type-effect {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: .15em solid orange;
+      animation: typing 2s steps(30, end), blink-caret 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: orange; }
+    }
   </style>
 </head>
-<body class="bg-gradient-to-br from-[#1e3c72] via-[#2a5298] to-[#0f2027] min-h-screen flex items-center justify-center px-4">
+<body class="animated-gradient min-h-screen flex items-center justify-center px-4">
 
   <% const downloadableLink = fileLink.replace('/upload/', '/upload/fl_attachment/'); %>
 
-  <div class="glass fade-in max-w-xl w-full p-10 rounded-3xl text-center text-white shadow-2xl">
-    <h2 class="text-4xl font-extrabold mb-4 text-yellow-300">✅ Upload Successful!</h2>
-    <p class="text-white text-opacity-80 mb-6">Your file is ready. You can preview, copy the link, or download it directly.</p>
+  <div class="glass fade-in max-w-xl w-full p-10 rounded-3xl text-center text-white shadow-2xl border-2 border-yellow-300 glow-border">
+    <h2 class="text-4xl font-extrabold mb-4 text-yellow-300 type-effect">✅ Upload Successful!</h2>
+    <p class="text-white text-opacity-90 mb-6 animate-fade-in">Your file is ready. You can preview, copy the link, or download it directly.</p>
 
     <!-- Cloudinary Link Box -->
-    <div class="bg-white/10 rounded-xl p-4 mb-4">
-      <input id="cloudLink" readonly class="w-full bg-transparent text-white font-mono text-sm text-center" value="<%= fileLink %>" />
+    <div class="bg-white/10 rounded-xl p-4 mb-4 border border-yellow-400">
+      <input id="cloudLink" readonly class="w-full bg-transparent text-white font-mono text-sm text-center focus:outline-none select-all" value="<%= fileLink %>" />
     </div>
 
     <!-- Buttons -->
     <div class="flex flex-col sm:flex-row gap-3 justify-center">
-      <button onclick="copyLink()" class="bg-yellow-400 text-gray-900 font-bold px-6 py-2 rounded-lg hover:bg-yellow-300 transition">📋 Copy Link</button>
-      <a href="<%= downloadableLink %>" class="bg-emerald-500 text-white font-bold px-6 py-2 rounded-lg hover:bg-emerald-600 transition">⬇️ Download File</a>
+      <button onclick="copyLink()" class="bg-yellow-400 text-gray-900 font-bold px-6 py-2 rounded-lg hover:bg-yellow-300 transition shadow-lg hover:scale-105 duration-300">📋 Copy Link</button>
+      <a href="<%= downloadableLink %>" class="bg-emerald-500 text-white font-bold px-6 py-2 rounded-lg hover:bg-emerald-600 transition shadow-lg hover:scale-105 duration-300">⬇️ Download File</a>
     </div>
 
     <a href="/" class="inline-block mt-6 text-sm text-yellow-200 underline hover:text-white">⬅️ Upload Another File</a>
   </div>
 
-  <footer class="absolute bottom-3 text-sm text-white text-opacity-80">
+  <footer class="absolute bottom-3 text-sm text-white text-opacity-80 animate-pulse">
     Made with ❤️ by <span class="font-semibold text-yellow-300">Somesh</span>
   </footer>
 

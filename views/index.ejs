@@ -32,7 +32,7 @@
     <h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-200 mb-2">🚀 QuickShare</h1>
     <p class="text-sm text-gray-200 mb-6">Securely upload files and instantly share them with anyone.</p>
 
-    <form action="/upload" method="POST" enctype="multipart/form-data">
+    <form action="/" method="POST" enctype="multipart/form-data">
 
       <label for="file" class="flex flex-col items-center justify-center w-full h-40 p-4 text-center bg-white/10 hover:bg-white/20 transition cursor-pointer border-2 border-dashed border-white rounded-xl">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -41,6 +41,7 @@
         <p class="text-sm">Click or drag file to this area to upload</p>
         <input id="file" type="file" name="file" class="hidden" required />
       </label>
+<p id="fileName" class="mt-4 text-sm text-white font-semibold transition-all duration-500 opacity-0 scale-95"></p>
 
       <button type="submit" class="w-full py-3 bg-white text-indigo-700 font-bold rounded-xl hover:bg-gray-100 transition">
         ⬆️ Upload Now
@@ -53,4 +54,28 @@
   </footer>
 
 </body>
+<script>
+  const fileInput = document.getElementById("file");
+  const fileNameDisplay = document.getElementById("fileName");
+
+  fileInput.addEventListener("change", function () {
+    const file = fileInput.files[0];
+
+    if (file) {
+      fileNameDisplay.textContent = `📎 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+      fileNameDisplay.classList.remove("opacity-0", "scale-95");
+      fileNameDisplay.classList.add("opacity-100", "scale-105", "animate-pulse", "text-green-300");
+
+      // remove animation after 1s
+      setTimeout(() => {
+        fileNameDisplay.classList.remove("animate-pulse");
+        fileNameDisplay.classList.add("scale-100");
+      }, 1000);
+    } else {
+      fileNameDisplay.textContent = "";
+      fileNameDisplay.classList.add("opacity-0", "scale-95");
+    }
+  });
+</script>
+
 </html>
