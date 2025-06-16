@@ -36,11 +36,16 @@ router.post("/", upload.single("file"), async (req, res) => {
     const response = await newFile.save();
 
     const baseURL = req.protocol + "://" + req.get("host");
-    const fileLink = `${baseURL}/files/${response.uuid}`;
+const fileLink = `${baseURL}/files/${response.uuid}`;
+
+
+
 
     console.log("✅ UUID-based share link:", fileLink);
 
-    res.render("success", { fileLink });
+   res.render("success", { fileLink: String(fileLink) }); 
+   console.log("✅ Final fileLink:", typeof fileLink, fileLink);
+
   } catch (err) {
     console.log("❌ Error:", JSON.stringify(err, null, 2));
     res.status(500).send(err.message || "Something went wrong");

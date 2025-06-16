@@ -54,7 +54,8 @@
 </head>
 <body class="animated-gradient min-h-screen flex items-center justify-center px-4">
 
-  <% const downloadableLink = fileLink.replace('/upload/', '/upload/fl_attachment/'); %>
+ <% const downloadableLink = String(fileLink).replace('/upload/', '/upload/fl_attachment/'); %>
+
 
   <div class="glass fade-in max-w-xl w-full p-10 rounded-3xl text-center text-white shadow-2xl border-2 border-yellow-300 glow-border">
     <h2 class="text-4xl font-extrabold mb-4 text-yellow-300 type-effect">✅ Upload Successful!</h2>
