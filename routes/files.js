@@ -57,7 +57,7 @@ router.get("/files/:uuid", async (req, res) => {
     res.status(500).send(err.message || "Something went wrong");
   }
 });
-
+//for check server work or not
 
 router.get("/ping", (req, res) => {
   console.log("📡 Ping route working");
