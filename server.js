@@ -17,7 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/", upRoute);
-
+app.get("/hi", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.get("/", (req, res) => {
   res.render("index");
