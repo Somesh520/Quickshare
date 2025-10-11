@@ -15,7 +15,7 @@ app.use(express.static("public"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true }));
 
-
+//end here 
 app.use("/", upRoute);
 app.get("/hi", (req, res) => {
   res.send("Hello World!");
