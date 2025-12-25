@@ -2,6 +2,10 @@
 
 :root {
   --primary-color: #4fecb8;
+}
+
+:root {
+  --primary-color: #4fecb8;
   --secondary-color: #0f172a;
   --text-color: #ffffff;
   --glass-bg: rgba(255, 255, 255, 0.05);
