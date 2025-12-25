@@ -78,9 +78,8 @@ router.get("/files/:uuid", async (req, res) => {
     }
 
     // Generate downloadable transformation if possible (cloudinary)
-    // For raw files, it might stay same. For images/videos we can add flags.
     let downloadableLink = file.path;
-    if (file.path.includes("/upload/")) {
+    if (file.path && file.path.includes("/upload/")) {
       downloadableLink = file.path.replace("/upload/", "/upload/fl_attachment/");
     }
 
