@@ -1,10 +1,16 @@
 
 const express = require("express");
 const app = express();
+const app = express();
 const path = require("path");
-const mongoose = require("./db");
+const connectDB = require("./db"); // Import the function
 require("dotenv").config();
 const upRoute = require("./routes/files");
+
+// Connect to DB immediately for local dev server
+if (require.main === module) {
+  connectDB();
+}
 
 
 // View engine removed (Switched to React Frontend)

@@ -4,6 +4,7 @@ const path = require("path");
 const crypto = require("crypto");
 const File = require("../models/File");
 const { storage } = require("../cloudinary");
+const connectDB = require("../db");
 
 // Short ID Generator (8 chars hex = 4 bytes)
 const generateShortId = () => crypto.randomBytes(4).toString("hex");
@@ -30,6 +31,7 @@ const router = express.Router();
 
 router.post("/", upload.single("file"), async (req, res) => {
   try {
+    await connectDB(); // Ensure DB is connected
     console.log("🔥 Upload route HIT");
     // console.log("📁 File:", req.file);
 
@@ -74,6 +76,7 @@ router.post("/", upload.single("file"), async (req, res) => {
 
 router.get("/files/:uuid", async (req, res) => {
   try {
+    await connectDB(); // Ensure DB is connected
     const file = await File.findOne({ uuid: req.params.uuid });
     if (!file) {
       return res.status(404).json({ message: "File not found or expired." });
