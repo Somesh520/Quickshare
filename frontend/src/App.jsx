@@ -30,6 +30,7 @@ function AnimatedRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/uses" element={<Uses />} />
+        <Route path="/download/:uuid" element={<Download />} />
       </Routes>
     </AnimatePresence>
   );

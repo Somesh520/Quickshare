@@ -54,9 +54,11 @@ router.post("/", upload.single("file"), async (req, res) => {
 
     const response = await newFile.save();
 
-    const baseURL = req.protocol + "://" + req.get("host");
-    // Ensure /api prefix is present if routes are mounted there
-    const fileLink = `${baseURL}/api/files/${response.uuid}`;
+    // Use CLIENT_URL from env (example: https://sharequick.netlify.app)
+    // If not set, fallback to relative path (React handles routing if on same domain, but better to be explicit)
+    // For Vercel/Netlify split, we need the frontend domain.
+    const clientURL = process.env.CLIENT_URL || "http://localhost:5173";
+    const fileLink = `${clientURL}/download/${response.uuid}`;
 
     console.log("✅ Share link:", fileLink);
     res.json({ fileLink });
@@ -71,7 +73,9 @@ router.post("/", upload.single("file"), async (req, res) => {
 router.get("/files/:uuid", async (req, res) => {
   try {
     const file = await File.findOne({ uuid: req.params.uuid });
-    if (!file) return res.status(404).render("error", { message: "File not found or expired." });
+    if (!file) {
+      return res.status(404).json({ message: "File not found or expired." });
+    }
 
     // Generate downloadable transformation if possible (cloudinary)
     // For raw files, it might stay same. For images/videos we can add flags.
@@ -80,7 +84,7 @@ router.get("/files/:uuid", async (req, res) => {
       downloadableLink = file.path.replace("/upload/", "/upload/fl_attachment/");
     }
 
-    res.render("publicfile", {
+    res.json({
       fileName: file.filename,
       fileSize: (file.size / 1024 / 1024).toFixed(2) + " MB",
       cloudLink: file.path,
@@ -88,7 +92,7 @@ router.get("/files/:uuid", async (req, res) => {
     });
   } catch (err) {
     console.error("❌ Error:", err);
-    res.status(500).send("Something went wrong");
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 

@@ -7,8 +7,7 @@ require("dotenv").config();
 const upRoute = require("./routes/files");
 
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+// View engine removed (Switched to React Frontend)
 
 
 const cors = require("cors");
