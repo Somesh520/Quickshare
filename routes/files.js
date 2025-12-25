@@ -57,7 +57,9 @@ router.post("/", upload.single("file"), async (req, res) => {
     // Use CLIENT_URL from env (example: https://sharequick.netlify.app)
     // If not set, fallback to relative path (React handles routing if on same domain, but better to be explicit)
     // For Vercel/Netlify split, we need the frontend domain.
-    const clientURL = process.env.CLIENT_URL || "http://localhost:5173";
+    // Use CLIENT_URL from env, OR automatically detect the frontend origin from the request headers
+    // This fixes the issue where links default to localhost if the env var is missing in Vercel.
+    const clientURL = process.env.CLIENT_URL || req.get('origin') || "http://localhost:5173";
     const fileLink = `${clientURL}/download/${response.uuid}`;
 
     console.log("✅ Share link:", fileLink);

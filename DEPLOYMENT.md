@@ -13,7 +13,9 @@ Make sure your code is pushed to a GitHub repository. Vercel and Netlify both pu
     *   `MONGO_URL`
     *   `CLOUDINARY_CLOUD_NAME`
     *   `CLOUDINARY_API_KEY`
+    *   `CLOUDINARY_API_KEY`
     *   `CLOUDINARY_API_SECRET`
+    *   `CLIENT_URL`: The URL of your Netlify frontend (e.g., `https://sharequick.netlify.app`). **CRITICAL for generating correct share links.**
 5.  Click **Deploy**.
 6.  Once deployed, copy the **Vercel Domain** (e.g., `https://quickshare-backend.vercel.app`).
 
