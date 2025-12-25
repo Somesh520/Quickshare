@@ -6,7 +6,9 @@ import './index.css';
 import App from './App.jsx';
 
 // Configure Axios Global Base URL
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || '/api';
+// If VITE_API_URL is set (Prod), append /api. If not (Dev), use /api (Proxy).
+const apiUrl = import.meta.env.VITE_API_URL;
+axios.defaults.baseURL = apiUrl ? `${apiUrl}/api` : '/api';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
