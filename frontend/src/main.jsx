@@ -8,8 +8,9 @@ import App from './App.jsx';
 // Configure Axios Global Base URL
 // If VITE_API_URL is set (Prod), append /api. If not (Dev), use /api (Proxy).
 let apiUrl = import.meta.env.VITE_API_URL;
-if (apiUrl && apiUrl.endsWith('/')) {
-  apiUrl = apiUrl.slice(0, -1);
+if (apiUrl) {
+  // Trim whitespace and remove ANY trailing slashes (one or more)
+  apiUrl = apiUrl.trim().replace(/\/+$/, '');
 }
 axios.defaults.baseURL = apiUrl ? `${apiUrl}/api` : '/api';
 

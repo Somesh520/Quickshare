@@ -59,7 +59,8 @@ function Home() {
         formData.append("file", file);
 
         try {
-            const response = await axios.post('/', formData, {
+            // Empty string '' uses the baseURL directly (e.g., .../api) without adding a trailing slash
+            const response = await axios.post('', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
 
