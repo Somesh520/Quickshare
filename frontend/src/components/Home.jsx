@@ -3,8 +3,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, File, CheckCircle, Copy, AlertCircle, Loader2, Image, Video, FileArchive, FileText } from 'lucide-react';
 
-// Configure Axios Base URL
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || '/api'; // Use env var in prod, proxy in dev
+// Configure Axios Base URL handled in main.jsx
 
 function Home() {
     const [file, setFile] = useState(null);
