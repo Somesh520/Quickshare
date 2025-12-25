@@ -1,4 +1,3 @@
-
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
@@ -8,7 +7,6 @@ const { storage } = require("../cloudinary");
 
 // Short ID Generator (8 chars hex = 4 bytes)
 const generateShortId = () => crypto.randomBytes(4).toString("hex");
-
 const upload = multer({
   storage,
   limits: { fileSize: 20 * 1024 * 1024 }, // 20MB limit
