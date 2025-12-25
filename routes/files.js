@@ -53,7 +53,7 @@ router.post("/", upload.single("file"), async (req, res) => {
     const response = await newFile.save();
 
     const baseURL = req.protocol + "://" + req.get("host");
-    const fileLink = `${baseURL}/files/${response.uuid}`;
+    const fileLink = `${baseURL}/api/files/${response.uuid}`;
 
 
 
