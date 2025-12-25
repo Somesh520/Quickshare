@@ -13,7 +13,7 @@ app.set("views", path.join(__dirname, "views"));
 
 const cors = require("cors");
 app.use(cors({
-  origin: ["http://localhost:5173", "https://quickshare-frontend.netlify.app"], // Add your Netlify URL here later
+  origin: "*",
   methods: ["GET", "POST"],
   credentials: true
 }));
