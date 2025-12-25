@@ -88,7 +88,7 @@ const Download = () => {
                     download
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full py-4 rounded-xl bg-primary-color text-black font-bold text-lg shadow-lg shadow-primary-color/20 flex items-center justify-center gap-2 hover:opacity-90 transition-all"
+                    className="w-full py-4 rounded-xl bg-emerald-500 text-black font-bold text-lg shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 hover:bg-emerald-400 transition-all"
                 >
                     <DownloadIcon className="w-5 h-5" />
                     Download Now
