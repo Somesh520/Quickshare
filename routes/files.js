@@ -6,7 +6,24 @@ const { v4: uuidv4 } = require("uuid");
 const File = require("../models/File");
 const { storage } = require("../cloudinary");
 
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB limit
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype.startsWith("image/") ||
+      file.mimetype.startsWith("video/") ||
+      file.mimetype === "application/zip" ||
+      file.mimetype === "application/pdf" ||
+      file.mimetype === "application/x-zip-compressed" ||
+      file.mimetype === "application/octet-stream" // common for zips
+    ) {
+      cb(null, true);
+    } else {
+      cb(new Error("❌ Only Images, Videos, PDFs, and Zip files are allowed."));
+    }
+  }
+});
 const router = express.Router();
 
 
@@ -36,15 +53,16 @@ router.post("/", upload.single("file"), async (req, res) => {
     const response = await newFile.save();
 
     const baseURL = req.protocol + "://" + req.get("host");
-const fileLink = `${baseURL}/files/${response.uuid}`;
+    const fileLink = `${baseURL}/files/${response.uuid}`;
 
 
 
 
     console.log("✅ UUID-based share link:", fileLink);
 
-   res.render("success", { fileLink: String(fileLink) }); 
-   console.log("✅ Final fileLink:", typeof fileLink, fileLink);
+    // res.render("success", { fileLink: String(fileLink) }); 
+    res.json({ fileLink });
+    console.log("✅ Final fileLink:", typeof fileLink, fileLink);
 
   } catch (err) {
     console.log("❌ Error:", JSON.stringify(err, null, 2));

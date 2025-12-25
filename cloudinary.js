@@ -12,10 +12,14 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => {
+    let resourceType = "raw";
+    if (file.mimetype.startsWith("image/")) resourceType = "image";
+    else if (file.mimetype.startsWith("video/")) resourceType = "video";
+
     return {
       folder: "quickshare",
-      resource_type: "raw", 
-      public_id: `${Date.now()}-${file.originalname}`,
+      resource_type: resourceType,
+      public_id: `${Date.now()}-${file.originalname.replace(/\s+/g, '_')}`, // Clean filename
     };
   },
 });

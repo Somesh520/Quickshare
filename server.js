@@ -11,12 +11,20 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 
+const cors = require("cors");
+app.use(cors({
+  origin: ["http://localhost:5173", "https://quickshare-frontend.netlify.app"], // Add your Netlify URL here later
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+
 app.use(express.static("public"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true }));
 
 //end here 
-app.use("/", upRoute);
+app.use("/api", upRoute); // Changed to /api prefix for clarity if needed, or keep as "/"
+
 app.get("/hi", (req, res) => {
   res.send("Hello World!");
 });
@@ -26,5 +34,14 @@ app.get("/", (req, res) => {
 });
 
 
+app.use((err, req, res, next) => {
+  console.error("🔥 GLOBAL ERROR HANDLER:", err);
+  res.status(500).json({ error: err.message });
+});
+
 const PORT = process.env.PORT || 5050;
-app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+}
+
+module.exports = app;
